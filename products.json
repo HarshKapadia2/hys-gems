@@ -1,0 +1,35 @@
+[
+  {
+    "ImageURL": "https://firebasestorage.googleapis.com/v0/b/hps-gems.appspot.com/o/product%2Famethyst.jpg?alt=media&token=6b0236e3-ac0d-45aa-be4e-b34f025a95a1",
+    "name": "Amethyst",
+    "price": "133",
+    "meta": {
+      "weight": "50/100/200g",
+      "size": "1-2cm",
+      "color": "Natural purple",
+      "texture": "Loose, rough, untreated and raw crystals"
+    }
+  },
+  {
+    "ImageURL": "https://firebasestorage.googleapis.com/v0/b/hps-gems.appspot.com/o/product%2Famethyst.jpg?alt=media&token=6b0236e3-ac0d-45aa-be4e-b34f025a95a1",
+    "name": "Amethyst",
+    "price": "133",
+    "meta": {
+      "weight": "50/100/200g",
+      "size": "1-2cm",
+      "color": "Natural purple",
+      "texture": "Loose, rough, untreated and raw crystals"
+    }
+  },
+  {
+    "ImageURL": "https://firebasestorage.googleapis.com/v0/b/hps-gems.appspot.com/o/product%2Famethyst.jpg?alt=media&token=6b0236e3-ac0d-45aa-be4e-b34f025a95a1",
+    "name": "Amethyst",
+    "price": "133",
+    "meta": {
+      "weight": "50/100/200g",
+      "size": "1-2cm",
+      "color": "Natural purple",
+      "texture": "Loose, rough, untreated and raw crystals"
+    }
+  }
+]
