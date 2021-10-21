@@ -1,54 +1,53 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 import { ScrollView } from 'react-native';
-import { Col, Row, Grid } from 'react-native-easy-grid';
+import { DataTable } from 'react-native-paper';
 
 function Update({ navigation }) {
   return (
     <ScrollView>
       <View style={styles.container}>
         <Text style={styles.maintext}>Update Profile</Text>
-        <Grid style={styles.grid}>
-          <Col size={25}>
-            <Row style={styles.cell}>
-              <Text>First name</Text>
-            </Row>
-            <Row style={styles.cell}>
-              <Text>Last name</Text>
-            </Row>
-            <Row style={styles.cell}>
-              <Text>Address</Text>
-            </Row>
-            <Row style={styles.cell}>
-              <Text>e-mail</Text>
-            </Row>
-            <Row style={styles.cell}>
-              <Text>Phone number</Text>
-            </Row>
-          </Col>
-          <Col size={75}>
-            <Row style={styles.cell}>
-              <Text>Saikiran</Text>
-            </Row>
-            <Row style={styles.cell}>
-              <Text>Jakkan</Text>
-            </Row>
-            <Row style={styles.cell}>
-              <Text>
-                Anita Nagar, Bldg no.11, C wing, Flat no. 104, Lokhandwala
-                Complex, Akurli Road, Kandivali - East
-              </Text>
-            </Row>
-            <Row style={styles.cell}>
-              <Text>saikiran.jakkan@gmail.com</Text>
-            </Row>
-            <Row style={styles.cell}>
-              <Text>+919769722287</Text>
-            </Row>
-          </Col>
-        </Grid>
+        <View>
+          <DataTable style={styles.table}>
+            <DataTable.Row>
+              <DataTable.Cell>First name</DataTable.Cell>
+              <DataTable.Cell>
+                <TextInput />
+              </DataTable.Cell>
+            </DataTable.Row>
+
+            <DataTable.Row>
+              <DataTable.Cell>Last Name</DataTable.Cell>
+              <DataTable.Cell>
+                <TextInput />
+              </DataTable.Cell>
+            </DataTable.Row>
+
+            <DataTable.Row>
+              <DataTable.Cell>Address</DataTable.Cell>
+              <DataTable.Cell>
+                <TextInput />
+              </DataTable.Cell>
+            </DataTable.Row>
+
+            <DataTable.Row>
+              <DataTable.Cell>e-mail</DataTable.Cell>
+              <DataTable.Cell>
+                <TextInput />
+              </DataTable.Cell>
+            </DataTable.Row>
+
+            <DataTable.Row>
+              <DataTable.Cell>Phone number</DataTable.Cell>
+              <DataTable.Cell>
+                <TextInput />
+              </DataTable.Cell>
+            </DataTable.Row>
+          </DataTable>
+        </View>
         <Button
-          title="Proceed to checkout"
+          title="Update Details"
           onPress={e => navigation.navigate('Home')}
         />
       </View>
@@ -62,11 +61,13 @@ const styles = StyleSheet.create({
   maintext: {
     fontSize: 30,
     textAlign: 'center',
+    color: '#000',
   },
   subtext: {
     fontSize: 14,
     textAlign: 'center',
   },
+  table: { paddingTop: 30 },
   cell: {
     borderWidth: 1,
     borderColor: '#ddd',

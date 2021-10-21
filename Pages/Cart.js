@@ -44,8 +44,10 @@ function Cart({ navigation }) {
   return (
     <ScrollView>
       <View style={styles.container}>
-        <Text style={styles.heading}>Cart</Text>
-        <Table borderStyle={{ borderWidth: 2, borderColor: '#c8e1ff' }}>
+        <Text style={styles.maintext}>Cart</Text>
+        <Table
+          style={styles.table}
+          borderStyle={{ borderWidth: 2, borderColor: '#c8e1ff' }}>
           <Row
             data={state.tableHead}
             style={styles.head}
@@ -63,8 +65,10 @@ function Cart({ navigation }) {
           />
         </Table>
 
-        <Text style={styles.heading}>Shopping History</Text>
-        <Table borderStyle={{ borderWidth: 2, borderColor: '#c8e1ff' }}>
+        <Text style={styles.maintext}>Shopping History</Text>
+        <Table
+          style={styles.table}
+          borderStyle={{ borderWidth: 2, borderColor: '#c8e1ff' }}>
           <Row
             data={state1.tableHead}
             style={styles.head}
@@ -79,11 +83,18 @@ function Cart({ navigation }) {
 
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 16, paddingTop: 30, backgroundColor: '#fff' },
-  head: { height: 40 },
+  head: { height: 40, color: '#000' },
   wrapper: { flexDirection: 'row' },
-  title: { flex: 1 },
+  title: { flex: 1, color: '#000' },
   row: { height: 28 },
-  text: { textAlign: 'center' },
+  table: { paddingTop: 30 },
+  maintext: {
+    fontSize: 30,
+    textAlign: 'center',
+    color: '#000',
+    paddingTop: 30,
+  },
+  text: { textAlign: 'center', color: '#000' },
   input: {
     height: 40,
     margin: 12,

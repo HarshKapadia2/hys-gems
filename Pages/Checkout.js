@@ -88,6 +88,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: 20,
     marginBottom: 20,
+    color: '#000',
   },
   subHeading: {
     fontSize: 20,
@@ -95,12 +96,14 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     marginTop: 20,
     marginBottom: 20,
+    color: '#000',
   },
   text: {
     fontSize: 14,
     textAlign: 'left',
     marginLeft: 20,
     marginBottom: 14,
+    color: '#000',
   },
 });
 
