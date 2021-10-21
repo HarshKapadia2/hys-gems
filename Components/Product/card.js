@@ -1,15 +1,22 @@
-import { View, Text, Image, StyleSheet } from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import React from 'react';
 
 function Card({ product, navigation }) {
   return (
-    <View
-      onTouchStart={() => navigation.navigate('Product', product)}
-      style={styles.container}>
-      <Image style={styles.image} source={{ uri: product.ImageURL }} />
-      <Text style={styles.productname}>{product.name}</Text>
-      <Text style={styles.productprice}>Rs.&nbsp;{product.price}/piece</Text>
-    </View>
+    <TouchableWithoutFeedback
+      onPress={() => navigation.navigate('Product', product)}>
+      <View style={styles.container}>
+        <Image style={styles.image} source={{ uri: product.ImageURL }} />
+        <Text style={styles.productname}>{product.name}</Text>
+        <Text style={styles.productprice}>Rs.&nbsp;{product.price}/piece</Text>
+      </View>
+    </TouchableWithoutFeedback>
   );
 }
 

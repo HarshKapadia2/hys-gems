@@ -35,3 +35,18 @@ const styles = StyleSheet.create({
 });
 
 export default Header;
+
+// import React from 'react';
+// import { Button } from 'react-native';
+
+// const Header = ({ navigation }) => {
+//   return (
+//     <Button
+//       onPress={() => navigation.navigate('Login')}
+//       title="Login/Signup"
+//       color="#000"
+//     />
+//   );
+// };
+
+// export default Header;

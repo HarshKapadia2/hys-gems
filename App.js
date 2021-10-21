@@ -3,9 +3,13 @@ import Home from './Pages/Home';
 import Login from './Pages/Login';
 import Signup from './Pages/Signup';
 import Products from './Pages/Product';
+import Cart from './Pages/Cart';
+import Checkout from './Pages/Checkout';
+import Profile from './Pages/Profile';
+import Update from './Pages/Update';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Button, Text } from 'react-native';
+import { Button } from 'react-native';
 
 const Stack = createNativeStackNavigator();
 const App = () => {
@@ -16,15 +20,12 @@ const App = () => {
           name="Home"
           options={({ navigation }) => {
             return {
-              // headerTitle: props => <Text style={{ fontSize: 40 }}>GEMS</Text>,
               headerRight: () => (
-                <>
-                  <Button
-                    onPress={() => navigation.navigate('Login')}
-                    title="Login/Signup"
-                    color="#000"
-                  />
-                </>
+                <Button
+                  onPress={() => navigation.navigate('Login')}
+                  title="Login/Signup"
+                  color="#000"
+                />
               ),
             };
           }}
@@ -32,11 +33,22 @@ const App = () => {
         />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Signup" component={Signup} />
+        <Stack.Screen name="Profile" component={Profile} />
+        <Stack.Screen name="Update" component={Update} />
+        <Stack.Screen name="Cart" component={Cart} />
+        <Stack.Screen name="Checkout" component={Checkout} />
         <Stack.Screen
           name="Product"
-          options={({ route }) => {
+          options={({ route, navigation }) => {
             return {
               title: route.params.name,
+              headerRight: () => (
+                <Button
+                  onPress={() => navigation.navigate('Login')}
+                  title="Login/Signup"
+                  color="#000"
+                />
+              ),
             };
           }}
           component={Products}
