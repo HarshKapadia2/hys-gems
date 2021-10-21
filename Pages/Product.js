@@ -21,6 +21,7 @@ function Products({ navigation, route }) {
         <Text>Status:Out of Stock</Text>
         <Text>Available Quantity:0</Text>
         <TextInput
+          // eslint-disable-next-line react-native/no-inline-styles
           style={{
             height: 40,
             borderColor: 'gray',
