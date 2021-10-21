@@ -16,23 +16,16 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Profile" component={Profile} />
-        <Stack.Screen name="Update" component={Update} />
-        <Stack.Screen name="Cart" component={Cart} />
-        <Stack.Screen name="Checkout" component={Checkout} />
         <Stack.Screen
           name="Home"
           options={({ navigation }) => {
             return {
-              // headerTitle: props => <Text style={{ fontSize: 40 }}>GEMS</Text>,
               headerRight: () => (
-                <>
-                  <Button
-                    onPress={() => navigation.navigate('Login')}
-                    title="Login/Signup"
-                    color="#000"
-                  />
-                </>
+                <Button
+                  onPress={() => navigation.navigate('Login')}
+                  title="Login/Signup"
+                  color="#000"
+                />
               ),
             };
           }}
@@ -40,11 +33,22 @@ const App = () => {
         />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Signup" component={Signup} />
+        <Stack.Screen name="Profile" component={Profile} />
+        <Stack.Screen name="Update" component={Update} />
+        <Stack.Screen name="Cart" component={Cart} />
+        <Stack.Screen name="Checkout" component={Checkout} />
         <Stack.Screen
           name="Product"
-          options={({ route }) => {
+          options={({ route, navigation }) => {
             return {
               title: route.params.name,
+              headerRight: () => (
+                <Button
+                  onPress={() => navigation.navigate('Login')}
+                  title="Login/Signup"
+                  color="#000"
+                />
+              ),
             };
           }}
           component={Products}

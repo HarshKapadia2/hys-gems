@@ -83,7 +83,7 @@ function Cart({ navigation }) {
 
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 16, paddingTop: 30, backgroundColor: '#fff' },
-  head: { height: 40, color: '#000' },
+  head: { height: 40 },
   wrapper: { flexDirection: 'row' },
   title: { flex: 1, color: '#000' },
   row: { height: 28 },
