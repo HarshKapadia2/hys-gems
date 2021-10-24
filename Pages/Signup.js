@@ -25,6 +25,7 @@ function Signup({ navigation }) {
 				style={styles.input}
 				value={username}
 				placeholder="Username"
+				placeholderTextColor="#000"
 				keyboardType="default"
 				name="email"
 			/>
@@ -32,7 +33,8 @@ function Signup({ navigation }) {
 				onChangeText={setEmail}
 				style={styles.input}
 				value={email}
-				placeholder="Email"
+				placeholder="e-mail"
+				placeholderTextColor="#000"
 				keyboardType="email-address"
 				name="email"
 			/>
@@ -40,11 +42,12 @@ function Signup({ navigation }) {
 				onChangeText={setPassword}
 				style={styles.input}
 				value={password}
-				placeholder="Passwordsd"
+				placeholder="Password"
+				placeholderTextColor="#000"
 				secureTextEntry={true}
 				name="password"
 			/>
-			<Button title="Sign up" onPress={handleSubmit} />
+			<Button title="Sign up" color="#212121" onPress={handleSubmit} />
 			<Text
 				style={styles.text}
 				onPress={(e) => navigation.navigate("Login")}
@@ -59,16 +62,23 @@ const styles = StyleSheet.create({
 		height: 40,
 		margin: 12,
 		borderWidth: 1,
-		padding: 10
+		padding: 10,
+		marginBottom: 20
 	},
 	heading: {
 		fontSize: 30,
 		textAlign: "center",
 		marginTop: 20,
-		marginBottom: 20
+		marginBottom: 20,
+		color: "#000"
 	},
 	text: {
-		textAlign: "center"
+		textAlign: "center",
+		color: "#000",
+		marginTop: 20
+	},
+	button: {
+		width: 100
 	}
 });
 

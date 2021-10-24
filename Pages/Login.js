@@ -18,12 +18,13 @@ function Login({ navigation }) {
 	}
 	return (
 		<View>
-			<Text style={styles.heading}>LOGIN</Text>
+			<Text style={styles.heading}>Login</Text>
 			<TextInput
 				onChangeText={setEmail}
 				style={styles.input}
 				value={email}
-				placeholder="Email"
+				placeholder="e-mail"
+				placeholderTextColor="#000"
 				keyboardType="email-address"
 				name="email"
 			/>
@@ -31,11 +32,17 @@ function Login({ navigation }) {
 				onChangeText={setPassword}
 				style={styles.input}
 				value={password}
-				placeholder="Passwordsd"
+				placeholder="Password"
+				placeholderTextColor="#000"
 				secureTextEntry={true}
 				name="password"
 			/>
-			<Button title="Login" onPress={handleSubmit} />
+			<Button
+				title="Log In"
+				color="#212121"
+				style={styles.button}
+				onPress={handleSubmit}
+			/>
 			<Text
 				style={styles.text}
 				onPress={(e) => navigation.navigate("Signup")}
@@ -50,16 +57,23 @@ const styles = StyleSheet.create({
 		height: 40,
 		margin: 12,
 		borderWidth: 1,
-		padding: 10
+		padding: 10,
+		marginBottom: 20
 	},
 	heading: {
 		fontSize: 30,
 		textAlign: "center",
 		marginTop: 20,
-		marginBottom: 20
+		marginBottom: 20,
+		color: "#000"
 	},
 	text: {
-		textAlign: "center"
+		textAlign: "center",
+		color: "#000",
+		marginTop: 20
+	},
+	button: {
+		width: 100
 	}
 });
 

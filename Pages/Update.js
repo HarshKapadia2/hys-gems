@@ -8,46 +8,46 @@ function Update({ navigation }) {
 		<ScrollView>
 			<View style={styles.container}>
 				<Text style={styles.maintext}>Update Profile</Text>
-				<View>
-					<DataTable style={styles.table}>
-						<DataTable.Row>
-							<DataTable.Cell>First name</DataTable.Cell>
-							<DataTable.Cell>
-								<TextInput />
-							</DataTable.Cell>
-						</DataTable.Row>
+				<DataTable style={styles.table}>
+					<DataTable.Row>
+						<DataTable.Cell>First name</DataTable.Cell>
+						<DataTable.Cell>
+							<TextInput></TextInput>
+						</DataTable.Cell>
+					</DataTable.Row>
 
-						<DataTable.Row>
-							<DataTable.Cell>Last Name</DataTable.Cell>
-							<DataTable.Cell>
-								<TextInput />
-							</DataTable.Cell>
-						</DataTable.Row>
+					<DataTable.Row>
+						<DataTable.Cell>Last Name</DataTable.Cell>
+						<DataTable.Cell>
+							<TextInput></TextInput>
+						</DataTable.Cell>
+					</DataTable.Row>
 
-						<DataTable.Row>
-							<DataTable.Cell>Address</DataTable.Cell>
-							<DataTable.Cell>
-								<TextInput />
-							</DataTable.Cell>
-						</DataTable.Row>
+					<DataTable.Row>
+						<DataTable.Cell>Address</DataTable.Cell>
+						<DataTable.Cell>
+							<TextInput></TextInput>
+						</DataTable.Cell>
+					</DataTable.Row>
 
-						<DataTable.Row>
-							<DataTable.Cell>e-mail</DataTable.Cell>
-							<DataTable.Cell>
-								<TextInput />
-							</DataTable.Cell>
-						</DataTable.Row>
+					<DataTable.Row>
+						<DataTable.Cell>e-mail</DataTable.Cell>
+						<DataTable.Cell>
+							<TextInput></TextInput>
+						</DataTable.Cell>
+					</DataTable.Row>
 
-						<DataTable.Row>
-							<DataTable.Cell>Phone number</DataTable.Cell>
-							<DataTable.Cell>
-								<TextInput />
-							</DataTable.Cell>
-						</DataTable.Row>
-					</DataTable>
-				</View>
+					<DataTable.Row>
+						<DataTable.Cell>Phone number</DataTable.Cell>
+						<DataTable.Cell>
+							<TextInput></TextInput>
+						</DataTable.Cell>
+					</DataTable.Row>
+				</DataTable>
+
 				<Button
 					title="Update Details"
+					color="#212121"
 					onPress={(e) => navigation.navigate("Home")}
 				/>
 			</View>

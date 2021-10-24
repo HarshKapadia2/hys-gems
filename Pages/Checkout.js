@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
+import { View, Text, StyleSheet, Button, ToastAndroid } from "react-native";
 import { ScrollView } from "react-native";
 import { Table, Rows } from "react-native-table-component";
 import { DataTable } from "react-native-paper";
@@ -10,6 +10,14 @@ const state = {
 };
 
 function Checkout({ navigation }) {
+	function handleSubmit(e) {
+		ToastAndroid.show(
+			"Order placed. Please check Cart.",
+			ToastAndroid.SHORT
+		);
+		navigation.navigate("Cart");
+	}
+
 	return (
 		<ScrollView>
 			<View style={styles.container}>
@@ -29,7 +37,7 @@ function Checkout({ navigation }) {
 					}}
 				/>
 				<Text style={styles.subHeading}>Order items</Text>
-				<Table borderStyle={{ borderWidth: 2, borderColor: "#c8e1ff" }}>
+				<Table borderStyle={{ borderWidth: 1, borderColor: "#000" }}>
 					<Rows data={state.tableData} textStyle={styles.text} />
 				</Table>
 				<View
@@ -69,7 +77,8 @@ function Checkout({ navigation }) {
 
 				<Button
 					title="Place Order"
-					onPress={(e) => navigation.navigate("Cart")}
+					color="#212121"
+					onPress={handleSubmit}
 				/>
 			</View>
 		</ScrollView>

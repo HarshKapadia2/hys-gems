@@ -19,7 +19,7 @@ function Card({ product, navigation }) {
 				/>
 				<Text style={styles.productname}>{product.name}</Text>
 				<Text style={styles.productprice}>
-					Rs.&nbsp;{product.price}/piece
+					Rs. {product.price}/piece
 				</Text>
 			</View>
 		</TouchableWithoutFeedback>
@@ -28,23 +28,28 @@ function Card({ product, navigation }) {
 
 const styles = StyleSheet.create({
 	container: {
-		margin: 10,
+		margin: 12,
 		borderWidth: 0.5,
 		borderColor: "#000",
 		display: "flex",
 		flexDirection: "column",
 		alignItems: "center",
-		paddingBottom: 15
+		paddingBottom: 15,
+		borderRadius: 5
 	},
 	image: {
 		width: "100%",
-		height: 200
+		height: 200,
+		borderTopLeftRadius: 5,
+		borderTopRightRadius: 5
 	},
 	productname: {
-		fontSize: 40
+		color: "#000",
+		fontSize: 35
 	},
 	productprice: {
-		fontSize: 25
+		color: "#000",
+		fontSize: 20
 	}
 });
 

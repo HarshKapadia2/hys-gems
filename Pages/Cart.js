@@ -1,24 +1,53 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from "react";
-import { View, StyleSheet, Text, Button } from "react-native";
+import { View, StyleSheet, Text, Button, Image } from "react-native";
 import { Table, Row, Rows } from "react-native-table-component";
 import { ScrollView } from "react-native";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 const state = {
 	tableHead: [
 		"",
 		"Name",
-		"Price per piece(Rs.)",
+		"Price per piece (Rs.)",
 		"Qty",
 		"Total Cost (Rs.)",
 		""
 	],
 
 	tableData: [
-		["Image", "Aqua Iridized", "223", "5", "1115", "Remove"],
-		["Image", "Aqua Iridized", "223", "5", "1115", "Remove"],
-		["Image", "Aqua Iridized", "223", "5", "1115", "Remove"],
-		["Image", "Aqua Iridized", "223", "5", "1115", "Remove"],
+		[
+			"Image",
+			"Aqua Iridized",
+			"223",
+			"5",
+			"1115",
+			<Icon name="remove" size={20} color="red" onPress={() => {}} />
+		],
+		[
+			"Image",
+			"Aqua Iridized",
+			"223",
+			"5",
+			"1115",
+			<Icon name="remove" size={20} color="red" onPress={() => {}} />
+		],
+		[
+			"Image",
+			"Aqua Iridized",
+			"223",
+			"5",
+			"1115",
+			<Icon name="remove" size={20} color="red" onPress={() => {}} />
+		],
+		[
+			"Image",
+			"Aqua Iridized",
+			"223",
+			"5",
+			"1115",
+			<Icon name="remove" size={20} color="red" onPress={() => {}} />
+		],
 		["", "", "Total", "25", "1115*4", ""]
 	]
 };
@@ -27,7 +56,7 @@ const state1 = {
 	tableHead: [
 		"Name",
 		"Order Date",
-		"Price per piece(Rs.)",
+		"Price per piece (Rs.)",
 		"Qty",
 		"Total Cost (Rs.)"
 	],
@@ -47,29 +76,31 @@ function Cart({ navigation }) {
 				<Text style={styles.maintext}>Cart</Text>
 				<Table
 					style={styles.table}
-					borderStyle={{ borderWidth: 2, borderColor: "#c8e1ff" }}
+					borderStyle={{ borderWidth: 1, borderColor: "#000" }}
 				>
 					<Row
 						data={state.tableHead}
 						style={styles.head}
 						textStyle={styles.text}
-						flexArr={[1, 2, 2, 1, 1]}
+						flexArr={[1, 2, 2, 1, 1.5, 0.5]}
 					/>
 					<Rows
 						data={state.tableData}
 						textStyle={styles.text}
-						flexArr={[1, 2, 2, 1, 1]}
-					/>
-					<Button
-						title="Proceed to checkout"
-						onPress={(e) => navigation.navigate("Checkout")}
+						flexArr={[1, 2, 2, 1, 1.5, 0.5]}
 					/>
 				</Table>
+
+				<Button
+					title="Proceed to checkout"
+					color="#212121"
+					onPress={(e) => navigation.navigate("Checkout")}
+				/>
 
 				<Text style={styles.maintext}>Shopping History</Text>
 				<Table
 					style={styles.table}
-					borderStyle={{ borderWidth: 2, borderColor: "#c8e1ff" }}
+					borderStyle={{ borderWidth: 1, borderColor: "#000" }}
 				>
 					<Row
 						data={state1.tableHead}
@@ -85,23 +116,28 @@ function Cart({ navigation }) {
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 1,
-		padding: 16,
-		paddingTop: 30,
 		backgroundColor: "#fff"
 	},
-	head: { height: 40 },
-	wrapper: { flexDirection: "row" },
-	title: { flex: 1, color: "#000" },
-	row: { height: 28 },
-	table: { paddingTop: 30 },
+	head: {
+		height: 40
+	},
+	wrapper: {
+		flexDirection: "row"
+	},
+	table: {
+		marginVertical: 30,
+		marginHorizontal: 12
+	},
 	maintext: {
 		fontSize: 30,
 		textAlign: "center",
 		color: "#000",
 		paddingTop: 30
 	},
-	text: { textAlign: "center", color: "#000" },
+	text: {
+		textAlign: "center",
+		color: "#000"
+	},
 	input: {
 		height: 40,
 		margin: 12,

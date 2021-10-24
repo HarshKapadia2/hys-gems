@@ -9,7 +9,7 @@ function Home({ navigation }) {
 		<ScrollView>
 			{/* <Header navigation={navigation} /> */}
 			<Text style={styles.maintext}>HYS Gems</Text>
-			<Text style={styles.subtext}>The place for raw gemstones.</Text>
+			<Text style={styles.subtext}>THE place for raw gemstones.</Text>
 			<Products navigation={navigation} />
 		</ScrollView>
 	);
@@ -17,12 +17,16 @@ function Home({ navigation }) {
 
 const styles = StyleSheet.create({
 	maintext: {
-		fontSize: 30,
-		textAlign: "center"
+		fontSize: 60,
+		color: "#000",
+		textAlign: "center",
+		marginVertical: 20
 	},
 	subtext: {
 		fontSize: 25,
-		textAlign: "center"
+		color: "#000",
+		textAlign: "center",
+		marginBottom: 30
 	}
 });
 

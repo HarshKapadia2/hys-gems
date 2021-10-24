@@ -18,30 +18,80 @@ const App = () => {
 			<Stack.Navigator>
 				<Stack.Screen
 					name="Home"
+					component={Home}
 					options={({ navigation }) => {
 						return {
+							title: "HYS Gems",
 							headerRight: () => (
 								<Button
 									onPress={() => navigation.navigate("Login")}
 									title="Login/Signup"
-									color="#000"
+									color="#212121"
 								/>
 							)
 						};
 					}}
-					component={Home}
 				/>
-				<Stack.Screen name="Login" component={Login} />
-				<Stack.Screen name="Signup" component={Signup} />
-				<Stack.Screen name="Profile" component={Profile} />
-				<Stack.Screen name="Update" component={Update} />
-				<Stack.Screen name="Cart" component={Cart} />
-				<Stack.Screen name="Checkout" component={Checkout} />
 				<Stack.Screen
-					name="Product"
+					name="Login"
+					component={Login}
 					options={({ route, navigation }) => {
 						return {
-							title: route.params.name,
+							title: "HYS Gems"
+						};
+					}}
+				/>
+				<Stack.Screen
+					name="Signup"
+					component={Signup}
+					options={({ route, navigation }) => {
+						return {
+							title: "HYS Gems"
+						};
+					}}
+				/>
+				<Stack.Screen
+					name="Profile"
+					component={Profile}
+					options={({ route, navigation }) => {
+						return {
+							title: "HYS Gems"
+						};
+					}}
+				/>
+				<Stack.Screen
+					name="Update"
+					component={Update}
+					options={({ route, navigation }) => {
+						return {
+							title: "HYS Gems"
+						};
+					}}
+				/>
+				<Stack.Screen
+					name="Cart"
+					component={Cart}
+					options={({ route, navigation }) => {
+						return {
+							title: "HYS Gems"
+						};
+					}}
+				/>
+				<Stack.Screen
+					name="Checkout"
+					component={Checkout}
+					options={({ route, navigation }) => {
+						return {
+							title: "HYS Gems"
+						};
+					}}
+				/>
+				<Stack.Screen
+					name="Product"
+					component={Products}
+					options={({ route, navigation }) => {
+						return {
+							title: "HYS Gems",
 							headerRight: () => (
 								<Button
 									onPress={() => navigation.navigate("Login")}
@@ -51,7 +101,6 @@ const App = () => {
 							)
 						};
 					}}
-					component={Products}
 				/>
 			</Stack.Navigator>
 		</NavigationContainer>

@@ -45,6 +45,7 @@ function Profile({ navigation }) {
 
 				<Button
 					title="Update Profile"
+					color="#212121"
 					onPress={(e) => navigation.navigate("Update")}
 				/>
 			</View>
