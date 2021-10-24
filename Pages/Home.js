@@ -1,19 +1,38 @@
-import React from "react";
-import { StyleSheet, Text } from "react-native";
-//import Header from '../Components/Header';
+import React, { useState, useEffect } from "react";
+import { StyleSheet, Text, ScrollView } from "react-native";
 import Products from "../Components/Product";
-import { ScrollView } from "react-native";
 
-function Home({ navigation }) {
+const Home = ({ navigation }) => {
+	const [products, setProducts] = useState([]);
+
+	useEffect(() => {
+		getAllProducts();
+	}, []);
+
+	const getAllProducts = async () => {
+		const response = await fetch(
+			"https://hps-gems.herokuapp.com/server/api/get-all-products.php",
+			{
+				headers: {
+					"Accept": "application/json"
+				}
+			}
+		);
+
+		const productData = await response.json();
+
+		setProducts(productData.data.products);
+	};
+
 	return (
 		<ScrollView>
 			{/* <Header navigation={navigation} /> */}
 			<Text style={styles.maintext}>HYS Gems</Text>
 			<Text style={styles.subtext}>THE place for raw gemstones.</Text>
-			<Products navigation={navigation} />
+			<Products navigation={navigation} products={products} />
 		</ScrollView>
 	);
-}
+};
 
 const styles = StyleSheet.create({
 	maintext: {

@@ -1,26 +1,45 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, Image, View, Button, TextInput } from "react-native";
 import { ScrollView } from "react-native";
 
-function Product({ navigation, route }) {
-	const product = route.params;
+const Product = ({ navigation, route }) => {
+	const [product, setProduct] = useState([]);
+
+	useEffect(() => {
+		const productId = route.params;
+		getProductData(productId);
+	}, []);
+
+	const getProductData = async (productId) => {
+		const response = await fetch(
+			"https://hps-gems.herokuapp.com/server/api/get-single-product.php",
+			{
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					"Accept": "application/json"
+				},
+				body: JSON.stringify({ id: productId })
+			}
+		);
+
+		const productData = await response.json();
+
+		setProduct(productData.data);
+	};
+
 	return (
 		<ScrollView>
 			<View style={styles.container}>
-				<Image
-					style={styles.image}
-					source={{ uri: product.ImageURL }}
-				/>
-				<Text style={styles.text}>Name: {product?.name}</Text>
-				<Text style={styles.text}>Weight: {product?.meta?.weight}</Text>
-				<Text style={styles.text}>Size: {product?.meta?.size}</Text>
-				<Text style={styles.text}>Color: {product?.meta?.color}</Text>
-				<Text style={styles.text}>
-					Description: {product?.meta?.texture}
-				</Text>
-				<Text style={styles.text}>Rs. {product?.price}/piece</Text>
-				<Text style={styles.text}>Status: Out of Stock</Text>
-				<Text style={styles.text}>Available quantity: 0</Text>
+				<Image style={styles.image} source={{ uri: product.pic_url }} />
+				<Text style={styles.text}>Name</Text>
+				<Text style={styles.valText}>{product.name}</Text>
+				<Text style={styles.text}>Price</Text>
+				<Text style={styles.valText}>Rs. {product.price}/piece</Text>
+				<Text style={styles.text}>Available quantity</Text>
+				<Text style={styles.valText}>{product.qty}</Text>
+				<Text style={styles.text}>Description</Text>
+				<Text style={styles.valText}>{product.description}</Text>
 
 				<TextInput
 					// eslint-disable-next-line react-native/no-inline-styles
@@ -36,6 +55,12 @@ function Product({ navigation, route }) {
 					keyboardType="number-pad"
 					placeholder="Enter the number of gems to be ordered"
 					placeholderTextColor="#000"
+					editable={
+						Number.parseInt(product.qty, 10) > 0 ? true : false
+					}
+					selectTextOnFocus={
+						Number.parseInt(product.qty, 10) > 0 ? true : false
+					}
 				/>
 
 				<Button
@@ -43,11 +68,14 @@ function Product({ navigation, route }) {
 					onPress={() => navigation.navigate("Cart")}
 					title="Add to cart"
 					color="#212121"
+					disabled={
+						Number.parseInt(product.qty, 10) > 0 ? false : true
+					}
 				/>
 			</View>
 		</ScrollView>
 	);
-}
+};
 
 const styles = StyleSheet.create({
 	container: {
@@ -58,10 +86,14 @@ const styles = StyleSheet.create({
 	},
 	text: {
 		textAlign: "center",
-		marginTop: 5,
-		marginBottom: 5,
 		color: "#000",
 		fontSize: 18
+	},
+	valText: {
+		textAlign: "center",
+		marginBottom: 20,
+		color: "#000",
+		fontSize: 20
 	},
 	image: {
 		width: "100%",

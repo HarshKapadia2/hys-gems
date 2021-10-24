@@ -1,18 +1,14 @@
 import React from "react";
 import Card from "./card";
-import productsDB from "../../products.json";
 
-function Products({ navigation }) {
-	// useEffect(() => {
-	//   console.log(productsDB);
-	// }, []);
+const Products = ({ navigation, products }) => {
 	return (
 		<>
-			{productsDB.map((e, i) => (
-				<Card navigation={navigation} key={i} product={e} />
+			{products.map((prod, index) => (
+				<Card navigation={navigation} key={index} product={prod} />
 			))}
 		</>
 	);
-}
+};
 
 export default Products;

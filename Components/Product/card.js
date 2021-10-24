@@ -7,16 +7,13 @@ import {
 } from "react-native";
 import React from "react";
 
-function Card({ product, navigation }) {
+const Card = ({ navigation, product }) => {
 	return (
 		<TouchableWithoutFeedback
-			onPress={() => navigation.navigate("Product", product)}
+			onPress={() => navigation.navigate("Product", product.id)}
 		>
 			<View style={styles.container}>
-				<Image
-					style={styles.image}
-					source={{ uri: product.ImageURL }}
-				/>
+				<Image style={styles.image} source={{ uri: product.pic_url }} />
 				<Text style={styles.productname}>{product.name}</Text>
 				<Text style={styles.productprice}>
 					Rs. {product.price}/piece
@@ -24,7 +21,7 @@ function Card({ product, navigation }) {
 			</View>
 		</TouchableWithoutFeedback>
 	);
-}
+};
 
 const styles = StyleSheet.create({
 	container: {
