@@ -1,29 +1,29 @@
-import React from 'react';
-import { StyleSheet, Text } from 'react-native';
+import React from "react";
+import { StyleSheet, Text } from "react-native";
 //import Header from '../Components/Header';
-import Products from '../Components/Product';
-import { ScrollView } from 'react-native';
+import Products from "../Components/Product";
+import { ScrollView } from "react-native";
 
 function Home({ navigation }) {
-  return (
-    <ScrollView>
-      {/* <Header navigation={navigation} /> */}
-      <Text style={styles.maintext}>HYS Gems</Text>
-      <Text style={styles.subtext}>The place for raw gemstones.</Text>
-      <Products navigation={navigation} />
-    </ScrollView>
-  );
+	return (
+		<ScrollView>
+			{/* <Header navigation={navigation} /> */}
+			<Text style={styles.maintext}>HYS Gems</Text>
+			<Text style={styles.subtext}>The place for raw gemstones.</Text>
+			<Products navigation={navigation} />
+		</ScrollView>
+	);
 }
 
 const styles = StyleSheet.create({
-  maintext: {
-    fontSize: 30,
-    textAlign: 'center',
-  },
-  subtext: {
-    fontSize: 25,
-    textAlign: 'center',
-  },
+	maintext: {
+		fontSize: 30,
+		textAlign: "center"
+	},
+	subtext: {
+		fontSize: 25,
+		textAlign: "center"
+	}
 });
 
 export default Home;
