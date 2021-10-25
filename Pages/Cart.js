@@ -80,6 +80,8 @@ const Cart = () => {
 				]);
 		});
 
+		historyTableArr.reverse();
+
 		setCartTableData(cartTableArr);
 		setHistoryTableData(historyTableArr);
 	};

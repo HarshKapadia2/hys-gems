@@ -1,24 +1,99 @@
 /* eslint-disable react-native/no-inline-styles */
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, Button, ToastAndroid } from "react-native";
 import { ScrollView } from "react-native";
 import { Table, Rows } from "react-native-table-component";
 import { DataTable } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
-
-const state = {
-	tableData: [["Image", "Aqua Iridized", "5 x 223 = Rs. 1115"]]
-};
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Checkout = () => {
 	const navigation = useNavigation();
 
-	const handleSubmit = () => {
-		ToastAndroid.show(
-			"Order placed. Please check Cart.",
-			ToastAndroid.SHORT
+	const [checkoutData, setCheckoutData] = useState({});
+	const [tableData, setTableData] = useState([]);
+	const [totalPrice, setTotalPrice] = useState(0);
+
+	useEffect(() => {
+		handleCheckoutData();
+	}, []);
+
+	const handleCheckoutData = async () => {
+		const token = await AsyncStorage.getItem("hys_gems_auth_token");
+
+		const response = await fetch(
+			"https://hps-gems.herokuapp.com/server/api/checkout.php",
+			{
+				headers: {
+					"Accept": "application/json",
+					"Authentication": `Bearer ${token}`
+				}
+			}
 		);
-		navigation.navigate("Cart");
+
+		const checkoutResponse = await response.json();
+
+		setCheckoutData(checkoutResponse.data);
+
+		populateTableData(checkoutResponse.data.items);
+	};
+
+	const populateTableData = (products) => {
+		let tableDataArr = [];
+		let total = 0;
+
+		products.map((prod) => {
+			total += prod.qty * prod.price;
+
+			tableDataArr.push([
+				prod.name,
+				prod.qty +
+					" x " +
+					prod.price +
+					" = Rs. " +
+					prod.qty * prod.price
+			]);
+		});
+
+		setTableData(tableDataArr);
+		setTotalPrice(total);
+	};
+
+	const handleSubmit = async () => {
+		const token = await AsyncStorage.getItem("hys_gems_auth_token");
+
+		const response = await fetch(
+			"https://hps-gems.herokuapp.com/server/api/place-order.php",
+			{
+				headers: {
+					"Accept": "application/json",
+					"Authentication": `Bearer ${token}`
+				}
+			}
+		);
+
+		const orderData = await response.json();
+
+		if (orderData.code === 200) {
+			ToastAndroid.show(
+				"Order placed! Please check the cart.",
+				ToastAndroid.SHORT
+			);
+			navigation.navigate("Home");
+		} else
+			ToastAndroid.show("Order could not be placed.", ToastAndroid.SHORT);
+	};
+
+	const getCurrentDate = () => {
+		let today = new Date();
+
+		const dd = String(today.getDate()).padStart(2, "0");
+		const mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0
+		const yyyy = today.getFullYear();
+
+		today = yyyy + "-" + mm + "-" + dd;
+
+		return today;
 	};
 
 	return (
@@ -27,10 +102,9 @@ const Checkout = () => {
 				<Text style={styles.heading}>Check Out</Text>
 				<Text style={styles.subHeading}>Shipping</Text>
 				<Text style={styles.text}>
-					Address: Anita Nagar, Bldg no.11, C wing, Flat no. 104,
-					Lokhandwala Complex, Akurli Road, Kandivali - East
+					{checkoutData.address ? checkoutData.address : ""}
 				</Text>
-				<Text style={styles.text}>Order date: 2021-10-20</Text>
+				<Text style={styles.text}>Order date: {getCurrentDate()}</Text>
 				<View
 					style={{
 						borderBottomColor: "black",
@@ -41,7 +115,7 @@ const Checkout = () => {
 				/>
 				<Text style={styles.subHeading}>Order items</Text>
 				<Table borderStyle={{ borderWidth: 1, borderColor: "#000" }}>
-					<Rows data={state.tableData} textStyle={styles.text} />
+					<Rows data={tableData} textStyle={styles.text} />
 				</Table>
 				<View
 					style={{
@@ -57,23 +131,38 @@ const Checkout = () => {
 				<View>
 					<DataTable>
 						<DataTable.Row>
-							<DataTable.Cell>Items</DataTable.Cell>
-							<DataTable.Cell>Rs. 1115</DataTable.Cell>
+							<DataTable.Cell>Item total</DataTable.Cell>
+							<DataTable.Cell>Rs. {totalPrice}</DataTable.Cell>
 						</DataTable.Row>
 
 						<DataTable.Row>
 							<DataTable.Cell>Shipping</DataTable.Cell>
-							<DataTable.Cell>Rs. 110</DataTable.Cell>
+							<DataTable.Cell>Rs. 100</DataTable.Cell>
 						</DataTable.Row>
 
 						<DataTable.Row>
-							<DataTable.Cell>Tax(2%)</DataTable.Cell>
-							<DataTable.Cell>Rs. 22.3</DataTable.Cell>
+							<DataTable.Cell>Tax (2%)</DataTable.Cell>
+							<DataTable.Cell>
+								{"Rs. " +
+									Number(
+										Math.round(totalPrice * 0.02 + "e2") +
+											"e-2"
+									)}
+							</DataTable.Cell>
 						</DataTable.Row>
 
 						<DataTable.Row>
 							<DataTable.Cell>Total</DataTable.Cell>
-							<DataTable.Cell>Rs. 1247.3</DataTable.Cell>
+							<DataTable.Cell>
+								{"Rs. " +
+									(totalPrice +
+										100 +
+										Number(
+											Math.round(
+												totalPrice * 0.02 + "e2"
+											) + "e-2"
+										))}
+							</DataTable.Cell>
 						</DataTable.Row>
 					</DataTable>
 				</View>
