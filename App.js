@@ -11,6 +11,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Button, ToastAndroid } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 const Stack = createNativeStackNavigator();
 const App = () => {
@@ -60,20 +61,30 @@ const App = () => {
 							title: "HYS Gems",
 							headerRight: () => {
 								return isLoggedIn ? (
-									<Button
-										onPress={() =>
-											navigation.navigate(
-												"Profile",
-												userData.data.user_id
-											)
-										}
-										title={
-											userData.data.first_name +
-											" " +
-											userData.data.last_name
-										}
-										color="#212121"
-									/>
+									<>
+										<Button
+											onPress={() =>
+												navigation.navigate(
+													"Profile",
+													userData.data.user_id
+												)
+											}
+											title={
+												userData.data.first_name +
+												" " +
+												userData.data.last_name
+											}
+											color="#212121"
+										/>
+										<Icon
+											name="shopping-cart"
+											size={30}
+											color="#212121"
+											onPress={() => {
+												navigation.navigate("Cart");
+											}}
+										/>
+									</>
 								) : (
 									<Button
 										onPress={() =>
@@ -168,20 +179,30 @@ const App = () => {
 							title: "HYS Gems",
 							headerRight: () => {
 								return isLoggedIn ? (
-									<Button
-										onPress={() =>
-											navigation.navigate(
-												"Profile",
-												userData.data.user_id
-											)
-										}
-										title={
-											userData.data.first_name +
-											" " +
-											userData.data.last_name
-										}
-										color="#212121"
-									/>
+									<>
+										<Button
+											onPress={() =>
+												navigation.navigate(
+													"Profile",
+													userData.data.user_id
+												)
+											}
+											title={
+												userData.data.first_name +
+												" " +
+												userData.data.last_name
+											}
+											color="#212121"
+										/>
+										<Icon
+											name="shopping-cart"
+											size={30}
+											color="#212121"
+											onPress={() => {
+												navigation.navigate("Cart");
+											}}
+										/>
+									</>
 								) : (
 									<Button
 										onPress={() =>
