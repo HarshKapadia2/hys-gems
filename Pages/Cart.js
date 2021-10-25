@@ -1,77 +1,111 @@
 /* eslint-disable react-native/no-inline-styles */
-import React from "react";
-import { View, StyleSheet, Text, Button, Image } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, StyleSheet, Text, Button } from "react-native";
 import { Table, Row, Rows } from "react-native-table-component";
-import { ScrollView } from "react-native";
+import { ScrollView, ToastAndroid } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const state = {
-	tableHead: [
-		"",
+const Cart = () => {
+	const navigation = useNavigation();
+
+	const [cartTableData, setCartTableData] = useState([]);
+	const [historyTableData, setHistoryTableData] = useState([]);
+
+	useEffect(() => {
+		handleProducts();
+	}, []);
+
+	const cartTableHead = [
 		"Name",
 		"Price per piece (Rs.)",
 		"Qty",
 		"Total Cost (Rs.)",
 		""
-	],
-
-	tableData: [
-		[
-			"Image",
-			"Aqua Iridized",
-			"223",
-			"5",
-			"1115",
-			<Icon name="remove" size={20} color="red" onPress={() => {}} />
-		],
-		[
-			"Image",
-			"Aqua Iridized",
-			"223",
-			"5",
-			"1115",
-			<Icon name="remove" size={20} color="red" onPress={() => {}} />
-		],
-		[
-			"Image",
-			"Aqua Iridized",
-			"223",
-			"5",
-			"1115",
-			<Icon name="remove" size={20} color="red" onPress={() => {}} />
-		],
-		[
-			"Image",
-			"Aqua Iridized",
-			"223",
-			"5",
-			"1115",
-			<Icon name="remove" size={20} color="red" onPress={() => {}} />
-		],
-		["", "", "Total", "25", "1115*4", ""]
-	]
-};
-
-const state1 = {
-	tableHead: [
+	];
+	const historyTableHead = [
 		"Name",
 		"Order Date",
 		"Price per piece (Rs.)",
 		"Qty",
 		"Total Cost (Rs.)"
-	],
+	];
 
-	tableData: [
-		["Aqua Iridized", "20/10/21", "223", "20", "1115*4"],
-		["Aqua Iridized", "20/10/21", "223", "20", "1115*4"],
-		["Aqua Iridized", "20/10/21", "223", "20", "1115*4"],
-		["Aqua Iridized", "20/10/21", "223", "20", "1115*4"]
-	]
-};
+	const handleProducts = async () => {
+		const token = await AsyncStorage.getItem("hys_gems_auth_token");
 
-const Cart = () => {
-	const navigation = useNavigation();
+		const response = await fetch(
+			"https://hps-gems.herokuapp.com/server/api/cart.php",
+			{
+				headers: {
+					"Accept": "application/json",
+					"Authentication": `Bearer ${token}`
+				}
+			}
+		);
+
+		const prodData = await response.json();
+
+		setTableData(prodData.data.items);
+	};
+
+	const setTableData = async (productData) => {
+		let cartTableArr = [];
+		let historyTableArr = [];
+
+		await productData.map((prod) => {
+			if (prod.is_delivered === "0")
+				cartTableArr.push([
+					prod.name,
+					prod.price,
+					prod.qty,
+					prod.price * prod.qty,
+					<Icon
+						name="remove"
+						size={20}
+						color="red"
+						onPress={() =>
+							removeProduct(Number.parseInt(prod.prod_id))
+						}
+					/>
+				]);
+			else
+				historyTableArr.push([
+					prod.name,
+					prod.date,
+					prod.price,
+					prod.qty,
+					prod.price * prod.qty
+				]);
+		});
+
+		setCartTableData(cartTableArr);
+		setHistoryTableData(historyTableArr);
+	};
+
+	const removeProduct = async (productId) => {
+		const token = await AsyncStorage.getItem("hys_gems_auth_token");
+
+		const response = await fetch(
+			"https://hps-gems.herokuapp.com/server/api/remove-product.php",
+			{
+				method: "POST",
+				headers: {
+					"Accept": "application/json",
+					"Content-Type": "application/json",
+					"Authentication": `Bearer ${token}`
+				},
+				body: JSON.stringify({ id: productId })
+			}
+		);
+
+		const productRemovalData = await response.json();
+
+		if (productRemovalData.code === 200) {
+			handleProducts();
+		} else ToastAndroid.show("Removal unsuccessful", ToastAndroid.SHORT);
+	};
 
 	return (
 		<ScrollView>
@@ -82,15 +116,15 @@ const Cart = () => {
 					borderStyle={{ borderWidth: 1, borderColor: "#000" }}
 				>
 					<Row
-						data={state.tableHead}
+						data={cartTableHead}
 						style={styles.head}
 						textStyle={styles.text}
-						flexArr={[1, 2, 2, 1, 1.5, 0.5]}
+						flexArr={[2, 2, 1, 1.5, 0.5]}
 					/>
 					<Rows
-						data={state.tableData}
+						data={cartTableData}
 						textStyle={styles.text}
-						flexArr={[1, 2, 2, 1, 1.5, 0.5]}
+						flexArr={[2, 2, 1, 1.5, 0.5]}
 					/>
 				</Table>
 
@@ -98,6 +132,7 @@ const Cart = () => {
 					title="Proceed to checkout"
 					color="#212121"
 					onPress={() => navigation.navigate("Checkout")}
+					disabled={cartTableData.length > 0 ? false : true}
 				/>
 
 				<Text style={styles.maintext}>Shopping History</Text>
@@ -106,11 +141,16 @@ const Cart = () => {
 					borderStyle={{ borderWidth: 1, borderColor: "#000" }}
 				>
 					<Row
-						data={state1.tableHead}
+						data={historyTableHead}
 						style={styles.head}
 						textStyle={styles.text}
+						flexArr={[2, 2, 2, 1, 2]}
 					/>
-					<Rows data={state1.tableData} textStyle={styles.text} />
+					<Rows
+						data={historyTableData}
+						textStyle={styles.text}
+						flexArr={[2, 2, 2, 1, 2]}
+					/>
 				</Table>
 			</View>
 		</ScrollView>

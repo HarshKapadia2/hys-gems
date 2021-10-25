@@ -50,7 +50,7 @@ const Home = ({ passUpLoginData }) => {
 		if (loginStatusData.code === 200) {
 			passUpLoginData(loginStatusData);
 			setIsLoggedIn(true);
-		}
+		} else await AsyncStorage.removeItem("hys_gems_auth_token");
 	};
 
 	return (
