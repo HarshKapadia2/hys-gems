@@ -2,12 +2,14 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, Image, View, Button, TextInput } from "react-native";
 import { ScrollView, ToastAndroid } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Product = ({ isLoggedIn }) => {
 	const navigation = useNavigation();
 	const route = useRoute();
 
 	const [product, setProduct] = useState([]);
+	const [qty, setQty] = useState(0);
 
 	useEffect(() => {
 		const productId = route.params.id;
@@ -36,6 +38,43 @@ const Product = ({ isLoggedIn }) => {
 		const productData = await response.json();
 
 		setProduct(productData.data);
+	};
+
+	const handleAddToCart = async () => {
+		if (qty <= 0 || qty > Number.parseInt(product.qty)) {
+			ToastAndroid.show(
+				"Enter an appropriate quantity.",
+				ToastAndroid.SHORT
+			);
+			return;
+		}
+
+		const token = await AsyncStorage.getItem("hys_gems_auth_token");
+
+		const obj = {
+			id: product.id,
+			qty: qty
+		};
+
+		const response = await fetch(
+			"https://hps-gems.herokuapp.com/server/api/add-to-cart.php",
+			{
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					"Accept": "application/json",
+					"Authentication": `Bearer ${token}`
+				},
+				body: JSON.stringify(obj)
+			}
+		);
+
+		const addToCartData = await response.json();
+
+		if (addToCartData.code === 200) {
+			ToastAndroid.show("Added to cart!", ToastAndroid.SHORT);
+			navigation.navigate("Cart");
+		} else ToastAndroid.show("Could not add to cart.", ToastAndroid.SHORT);
 	};
 
 	return (
@@ -75,11 +114,13 @@ const Product = ({ isLoggedIn }) => {
 							? true
 							: false
 					}
+					onChangeText={setQty}
+					value={qty}
 				/>
 
 				<Button
 					style={styles.button}
-					onPress={() => navigation.navigate("Cart")}
+					onPress={() => handleAddToCart()}
 					title="Add to cart"
 					color="#212121"
 					disabled={
