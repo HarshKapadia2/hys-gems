@@ -4,19 +4,22 @@ import { View, Text, StyleSheet, Button, ToastAndroid } from "react-native";
 import { ScrollView } from "react-native";
 import { Table, Rows } from "react-native-table-component";
 import { DataTable } from "react-native-paper";
+import { useNavigation } from "@react-navigation/native";
 
 const state = {
 	tableData: [["Image", "Aqua Iridized", "5 x 223 = Rs. 1115"]]
 };
 
-function Checkout({ navigation }) {
-	function handleSubmit(e) {
+const Checkout = () => {
+	const navigation = useNavigation();
+
+	const handleSubmit = () => {
 		ToastAndroid.show(
 			"Order placed. Please check Cart.",
 			ToastAndroid.SHORT
 		);
 		navigation.navigate("Cart");
-	}
+	};
 
 	return (
 		<ScrollView>
@@ -83,7 +86,7 @@ function Checkout({ navigation }) {
 			</View>
 		</ScrollView>
 	);
-}
+};
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,

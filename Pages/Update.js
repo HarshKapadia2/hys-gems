@@ -2,8 +2,11 @@ import React from "react";
 import { StyleSheet, Text, View, Button, TextInput } from "react-native";
 import { ScrollView } from "react-native";
 import { DataTable } from "react-native-paper";
+import { useNavigation } from "@react-navigation/native";
 
-function Update({ navigation }) {
+const Update = () => {
+	const navigation = useNavigation();
+
 	return (
 		<ScrollView>
 			<View style={styles.container}>
@@ -48,12 +51,12 @@ function Update({ navigation }) {
 				<Button
 					title="Update Details"
 					color="#212121"
-					onPress={(e) => navigation.navigate("Home")}
+					onPress={() => navigation.navigate("Home")}
 				/>
 			</View>
 		</ScrollView>
 	);
-}
+};
 
 const styles = StyleSheet.create({
 	container: {

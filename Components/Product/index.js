@@ -1,11 +1,11 @@
 import React from "react";
 import Card from "./card";
 
-const Products = ({ navigation, products }) => {
+const Products = ({ isLoggedIn, products }) => {
 	return (
 		<>
 			{products.map((prod, index) => (
-				<Card navigation={navigation} key={index} product={prod} />
+				<Card isLoggedIn={isLoggedIn} key={index} product={prod} />
 			))}
 		</>
 	);

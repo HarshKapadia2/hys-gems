@@ -1,13 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, Image, View, Button, TextInput } from "react-native";
-import { ScrollView } from "react-native";
+import { ScrollView, ToastAndroid } from "react-native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
-const Product = ({ navigation, route }) => {
+const Product = ({ isLoggedIn }) => {
+	const navigation = useNavigation();
+	const route = useRoute();
+
 	const [product, setProduct] = useState([]);
 
 	useEffect(() => {
-		const productId = route.params;
+		const productId = route.params.id;
 		getProductData(productId);
+
+		if (!isLoggedIn)
+			ToastAndroid.show(
+				"Log in to add product to cart, subject to availability.",
+				ToastAndroid.SHORT
+			);
 	}, []);
 
 	const getProductData = async (productId) => {
@@ -56,10 +66,14 @@ const Product = ({ navigation, route }) => {
 					placeholder="Enter the number of gems to be ordered"
 					placeholderTextColor="#000"
 					editable={
-						Number.parseInt(product.qty, 10) > 0 ? true : false
+						isLoggedIn && Number.parseInt(product.qty, 10) > 0
+							? true
+							: false
 					}
 					selectTextOnFocus={
-						Number.parseInt(product.qty, 10) > 0 ? true : false
+						isLoggedIn && Number.parseInt(product.qty, 10) > 0
+							? true
+							: false
 					}
 				/>
 
@@ -69,7 +83,9 @@ const Product = ({ navigation, route }) => {
 					title="Add to cart"
 					color="#212121"
 					disabled={
-						Number.parseInt(product.qty, 10) > 0 ? false : true
+						isLoggedIn && Number.parseInt(product.qty, 10) > 0
+							? false
+							: true
 					}
 				/>
 			</View>

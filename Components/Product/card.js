@@ -6,11 +6,19 @@ import {
 	TouchableWithoutFeedback
 } from "react-native";
 import React from "react";
+import { useNavigation } from "@react-navigation/native";
 
-const Card = ({ navigation, product }) => {
+const Card = ({ isLoggedIn, product }) => {
+	const navigation = useNavigation();
+
+	const routeParams = {
+		id: product.id,
+		isLoggedIn
+	};
+
 	return (
 		<TouchableWithoutFeedback
-			onPress={() => navigation.navigate("Product", product.id)}
+			onPress={() => navigation.navigate("Product", routeParams)}
 		>
 			<View style={styles.container}>
 				<Image style={styles.image} source={{ uri: product.pic_url }} />

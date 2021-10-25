@@ -4,6 +4,7 @@ import { View, StyleSheet, Text, Button, Image } from "react-native";
 import { Table, Row, Rows } from "react-native-table-component";
 import { ScrollView } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
+import { useNavigation } from "@react-navigation/native";
 
 const state = {
 	tableHead: [
@@ -69,7 +70,9 @@ const state1 = {
 	]
 };
 
-function Cart({ navigation }) {
+const Cart = () => {
+	const navigation = useNavigation();
+
 	return (
 		<ScrollView>
 			<View style={styles.container}>
@@ -94,7 +97,7 @@ function Cart({ navigation }) {
 				<Button
 					title="Proceed to checkout"
 					color="#212121"
-					onPress={(e) => navigation.navigate("Checkout")}
+					onPress={() => navigation.navigate("Checkout")}
 				/>
 
 				<Text style={styles.maintext}>Shopping History</Text>
@@ -112,7 +115,7 @@ function Cart({ navigation }) {
 			</View>
 		</ScrollView>
 	);
-}
+};
 
 const styles = StyleSheet.create({
 	container: {

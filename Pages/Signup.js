@@ -7,16 +7,19 @@ import {
 	Button,
 	ToastAndroid
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
-function Signup({ navigation }) {
+const Signup = () => {
+	const navigation = useNavigation();
+
 	const [username, setUsername] = useState("");
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 
-	function handleSubmit(e) {
+	const handleSubmit = () => {
 		console.log({ username, email, password });
 		ToastAndroid.show("Success", ToastAndroid.SHORT);
-	}
+	};
 	return (
 		<View>
 			<Text style={styles.heading}>Create an Account</Text>
@@ -50,13 +53,13 @@ function Signup({ navigation }) {
 			<Button title="Sign up" color="#212121" onPress={handleSubmit} />
 			<Text
 				style={styles.text}
-				onPress={(e) => navigation.navigate("Login")}
+				onPress={() => navigation.navigate("Login")}
 			>
 				Already have an account? Login
 			</Text>
 		</View>
 	);
-}
+};
 const styles = StyleSheet.create({
 	input: {
 		height: 40,
