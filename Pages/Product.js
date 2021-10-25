@@ -115,7 +115,6 @@ const Product = ({ isLoggedIn }) => {
 							: false
 					}
 					onChangeText={setQty}
-					value={qty}
 				/>
 
 				<Button
