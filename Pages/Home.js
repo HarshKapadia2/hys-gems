@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, ScrollView } from "react-native";
+import { StyleSheet, Text, ScrollView, Linking } from "react-native";
 import Products from "../Components/Product";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -53,11 +53,18 @@ const Home = ({ passUpLoginData }) => {
 		} else await AsyncStorage.removeItem("hys_gems_auth_token");
 	};
 
+	const githubNavigation = async () => {
+		await Linking.openURL("https://github.com/HarshKapadia2/hys-gems");
+	};
+
 	return (
 		<ScrollView>
 			<Text style={styles.maintext}>HYS Gems</Text>
 			<Text style={styles.subtext}>THE place for raw gemstones.</Text>
 			<Products isLoggedIn={isLoggedIn} products={products} />
+			<Text onPress={githubNavigation} style={styles.link}>
+				GitHub Repository
+			</Text>
 		</ScrollView>
 	);
 };
@@ -73,6 +80,14 @@ const styles = StyleSheet.create({
 		fontSize: 25,
 		color: "#000",
 		textAlign: "center",
+		marginBottom: 30
+	},
+	link: {
+		fontSize: 15,
+		textDecorationLine: "underline",
+		color: "#000",
+		textAlign: "center",
+		marginTop: 10,
 		marginBottom: 30
 	}
 });
