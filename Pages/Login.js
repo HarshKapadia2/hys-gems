@@ -108,7 +108,7 @@ const Login = ({ passUpLoginData }) => {
 				onPress={handleSubmit}
 			/>
 			<Text
-				style={styles.text}
+				style={styles.link}
 				onPress={() => navigation.navigate("Signup")}
 			>
 				Not a member? Signup
@@ -140,6 +140,13 @@ const styles = StyleSheet.create({
 	},
 	button: {
 		width: 100
+	},
+	link: {
+		fontSize: 15,
+		textDecorationLine: "underline",
+		color: "#000",
+		textAlign: "center",
+		marginVertical: 30
 	}
 });
 

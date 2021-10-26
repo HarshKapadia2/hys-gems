@@ -52,7 +52,7 @@ const Signup = () => {
 			/>
 			<Button title="Sign up" color="#212121" onPress={handleSubmit} />
 			<Text
-				style={styles.text}
+				style={styles.link}
 				onPress={() => navigation.navigate("Login")}
 			>
 				Already have an account? Login
@@ -82,6 +82,13 @@ const styles = StyleSheet.create({
 	},
 	button: {
 		width: 100
+	},
+	link: {
+		fontSize: 15,
+		textDecorationLine: "underline",
+		color: "#000",
+		textAlign: "center",
+		marginVertical: 30
 	}
 });
 
